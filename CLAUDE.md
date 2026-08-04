@@ -16,3 +16,4 @@ This is a NixOS homelab running k3s. Everything is managed as code — no manual
 - To add a new service: create a `homelab-<service>` repo, then add an Application manifest in `homelab-apps` pointing at it
 - All runnable operations go in a Makefile — never suggest one-off commands
 - Everything is in source control
+- All `homelab-*` repos are public on GitHub. Never put sensitive values — tokens, passwords, webhook URLs, API keys — in any manifest or ConfigMap committed to git. Sensitive values must come from Kubernetes Secrets created out-of-band (e.g. via a Makefile target), never stored in source control.
