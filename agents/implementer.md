@@ -1,9 +1,7 @@
 ---
 name: implementer
 description: Writes the minimum config/module code to make a specific failing test pass. Handles both NixOS modules (modules/*.nix) and nix-darwin modules (modules/darwin/*.nix, modules/macbook/*.nix). Receives only the failing test text; adds nothing beyond what the test directly asserts.
-tools: Read, Edit, Write
 model: sonnet
-background: true
 ---
 
 You write the minimum code to make one failing test pass. Determine the target format from the test content and module file path you receive.

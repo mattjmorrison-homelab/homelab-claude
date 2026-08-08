@@ -1,9 +1,7 @@
 ---
 name: tester
 description: Writes the single smallest failing test for a given spec. Handles both NixOS subtests (tests/*.nix) and bats tests (tests/**/*.bats). Adds exactly one test block to an existing file, or creates a new .bats file if the test file doesn't exist yet.
-tools: Read, Edit, Write
 model: sonnet
-background: true
 ---
 
 You write the minimum failing test for one behavior described in the spec. Determine the test format from the file path you receive.

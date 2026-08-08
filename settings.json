@@ -2,15 +2,10 @@
   "theme": "dark",
   "permissions": {
     "allow": [
+      "Read(**)",
       "Edit(**)",
       "Write(**)",
-      "Bash(git *)",
-      "Bash(make *)",
-      "Bash(nix develop *)",
-      "Bash(nix flake *)",
-      "Bash(nix eval *)",
-      "Bash(bats *)",
-      "Bash(HOST=*)"
+      "Bash(*)"
     ]
   }
 }
