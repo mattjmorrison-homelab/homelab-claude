@@ -4,3 +4,7 @@
 !settings.json
 !agents/
 !agents/**
+!skills/
+!skills/**
+!hooks/
+!hooks/**

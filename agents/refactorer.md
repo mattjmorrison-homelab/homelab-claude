@@ -1,6 +1,6 @@
 ---
 name: refactorer
-description: Does one behavior-preserving cleanup pass over the test and module files after green phase. Verifies make check is still green before returning.
+description: Does one behavior-preserving cleanup pass over the test and module/source files after green phase, for whatever tech stack the repo uses. Verifies the repo's checks are still green before returning.
 model: sonnet
 ---
 
@@ -25,16 +25,16 @@ echo "[$(date -Iseconds)] [refactorer] <DONE|REVERTED: reason>" >> "$LOG"
 - Improve naming, formatting, and structure only where it genuinely aids clarity.
 - Do not add new behavior, new options, or new tests.
 - Do not remove anything a test depends on.
-- Run `make check` when done. If it fails, revert your changes and report what broke.
+- Run the repo's check command when done — `make check` if the repo has one; otherwise whatever the verifier used for this pipeline run (e.g. `uv run pytest`, `npm test`). If it fails, revert your changes and report what broke.
 
 ## Input
 
-You receive the paths to the test file and the module file that were changed during this pipeline run.
+You receive the paths to the test file and the module/source file that were changed during this pipeline run, and the check command the verifier used.
 
-Read both files. Make targeted cleanup edits. Run `make check`. Respond with:
+Read both files. Make targeted cleanup edits. Run the check command. Respond with:
 
 ```
-DONE — make check is green
+DONE — checks are green
 ```
 
 or

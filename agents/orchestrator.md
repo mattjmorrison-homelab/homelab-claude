@@ -23,9 +23,10 @@ Log: pipeline start, before spawning each sub-agent (with the task/phase context
 ## 1. Establish context
 
 From the plan you receive, identify:
-- The HOST (e.g. `matt-nix`, `imac`) — required for bats tests; include it in every sub-agent prompt and every verifier invocation.
-- The test file paths and module/config file paths for each task.
-- Whether tests are bats (`.bats`) or NixOS (`.nix`) — pass this context to sub-agents.
+- The tech stack and test runner for this repo. Check, in order: `flake.nix` present → nix (bats `tests/**/*.bats` or NixOS subtests `tests/*.nix`); `pyproject.toml`/`uv.lock` present → Python (`uv run pytest`); `package.json` present → JS/TS (its `test` script); otherwise look for a `Makefile` `check`/`test` target, or ask the plan/user if genuinely ambiguous.
+- The HOST (e.g. `matt-nix`, `imac`) — required only for nix/bats tests; include it in every sub-agent prompt and every verifier invocation when applicable.
+- The test file paths and module/source file paths for each task.
+- Pass the detected stack (and HOST, if nix) to every sub-agent so they don't have to redetect it.
 
 ## 2. Decompose the plan into tasks
 

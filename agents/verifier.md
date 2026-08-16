@@ -29,7 +29,12 @@ Inspect the test file path you received:
 1. Run `make check` — validates the NixOS system
 2. Run `nix eval .#darwinConfigurations` — catches darwin regressions
 
-Both checks must succeed for a green verdict (except in red phase where the bats test itself is expected to fail).
+**If the test file ends in `.py`** → pytest mode:
+1. If the repo has a `Makefile` with a `check` or `test` target, run that; otherwise run `uv run pytest <test-file>` directly.
+
+**Otherwise** → generic mode: run the repo's own check command — a `Makefile` `check`/`test` target if present, else the ecosystem-conventional command (`npm test`, `go test ./...`, etc.) scoped to the changed test file/module where the tool supports it.
+
+Both checks must succeed for a green verdict (except in red phase where the new test itself is expected to fail).
 
 ## Red phase — verifying a new test
 
@@ -48,6 +53,13 @@ Run the checks. Then judge:
 - The test passes
 - More than one `with subtest(...)` block was added
 - Any file other than the test file was modified
+
+**For any other stack (pytest, generic) — REJECT if:**
+- The check command fails for a reason other than the new assertion (syntax error, import error, etc.)
+- The test passes
+- More than one test function/block was added
+- The test contains assertions beyond the single behavior described
+- Any file outside the test file was modified
 
 **APPROVE if:**
 - Exactly one test block was added
